@@ -23,6 +23,7 @@ void inputArrayToTextFile()
 
     ofstream file("array.txt");
 
+
     file << n << endl;
 
     for (int i = 0; i < n; i++)
