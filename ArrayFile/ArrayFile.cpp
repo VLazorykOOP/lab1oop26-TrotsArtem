@@ -271,7 +271,7 @@ int main()
     for (auto v : vA) {
         cout << v << "   ";
     }
-*/
+    */
     TaskV();
     return 1;
 
