@@ -85,6 +85,7 @@ void randomArrayToBinaryFile()
 
 // Завдання 1
 // Видалити всі додатні елементи масиву
+void task1()
 {
     ifstream file("array.txt");
 
