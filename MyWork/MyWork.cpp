@@ -69,7 +69,7 @@ void randomArrayToBinaryFile()
     // запис усіх елементів масиву
     file.write((char*)A, n * sizeof(int));
 
-    file.close()
+    file.close();
 
     delete[] A;
 
