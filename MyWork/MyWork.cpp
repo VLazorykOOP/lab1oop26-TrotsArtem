@@ -1,9 +1,9 @@
-﻿#include <iostream>
-#include <fstream>
-#include <vector>
-#include <windows.h>
+﻿#include <iostream> // бібліотека для роботи з консоллю
+#include <fstream> // бібліотека для роботи з файлами
+#include <vector> // контейнер vector
+#include <windows.h> // бібліотека для налаштування кодування консолі Windows
 
-using namespace std;
+using namespace std; // дозволяє не писати std:
 
 // Функція видалення файлів при завершенні програми
 void deleteFiles()
@@ -22,32 +22,25 @@ void inputArrayToTextFile()
 {
     int n;
 
-    // введення розміру масиву
     cout << "Введіть розмір масиву: ";
     cin >> n;
 
-    // створення динамічного масиву
     int* A = new int[n];
 
     cout << "Введіть елементи масиву:\n";
 
-    // введення елементів
     for (int i = 0; i < n; i++)
         cin >> A[i];
 
-    // відкриття текстового файлу
     ofstream file("array.txt");
 
-    // запис розміру масиву
     file << n << endl;
 
-    // запис елементів масиву
     for (int i = 0; i < n; i++)
         file << A[i] << " ";
 
     file.close();
 
-    // звільнення пам'яті
     delete[] A;
 
     cout << "Масив записано у файл array.txt\n";
@@ -73,10 +66,10 @@ void randomArrayToBinaryFile()
     // запис розміру масиву
     file.write((char*)&n, sizeof(n));
 
-    // запис масиву
+    // запис усіх елементів масиву
     file.write((char*)A, n * sizeof(int));
 
-    file.close();
+    file.close()
 
     delete[] A;
 
@@ -85,6 +78,7 @@ void randomArrayToBinaryFile()
 
 // Завдання 1
 // Видалити всі додатні елементи масиву
+void task1()
 {
     ifstream file("array.txt");
 
@@ -99,20 +93,20 @@ void randomArrayToBinaryFile()
 
     file.close();
 
-    int count = 0;
+    int count = 0; // лічильник
 
     // визначення кількості недодатних елементів
     for (int i = 0; i < n; i++)
-        if (A[i] <= 0)
-            count++;
+        if (A[i] <= 0) // перевірка чи елемент не додатній
+            count++; // лічильник
 
-    int* B = new int[count];
+    int* B = new int[count]; // новbq масив без додатних елементів
 
-    int j = 0;
+    int j = 0; // індекс нового масиву
 
     // формування нового масиву
     for (int i = 0; i < n; i++)
-        if (A[i] <= 0)
+        if (A[i] <= 0) // перевірка умови
             B[j++] = A[i];
 
     ofstream result("task1.txt");
@@ -151,37 +145,37 @@ void task2()
     file.close();
 
     int* p = A;  // вказівник на поточний елемент
-    int index = -1;
+    int index = -1; // індекс знайденого елемента
 
     // пошук першого елемента кратного 2
     for (int i = 0; i < n; i++)
     {
-        if (*(p + i) % 2 == 0)
+        if (*(p + i) % 2 == 0) // перевірка кратності
         {
-            index = i;
+            index = i; // запам'ятовування позиції
             break;
         }
     }
 
-    if (index == -1)
+    if (index == -1) // якщо елемент не знайдено
     {
         cout << "Немає елементів кратних 2\n";
         delete[] A;
         return;
     }
 
-    int minValue = 1000000;
+    int minValue = 1000000; // початкове велике значення
 
     // пошук мінімального додатного елемента правіше
-    for (int i = index + 1; i < n; i++)
+    for (int i = index + 1; i < n; i++) // перегляд правої частини
     {
-        if (*(p + i) > 0 && *(p + i) < minValue)
+        if (*(p + i) > 0 && *(p + i) < minValue) // перевірка умови
             minValue = *(p + i);
     }
 
     ofstream result("task2.txt");
 
-    if (minValue == 1000000)
+    if (minValue == 1000000) // якщо значення не знайдено
         cout << "Немає додатних елементів після кратного 2\n";
     else
     {
@@ -191,7 +185,7 @@ void task2()
 
     result.close();
 
-    delete[] A;
+    delete[] A; // звільнення пам'яті
 }
 
 // Завдання 3
@@ -203,19 +197,19 @@ void task3()
     int n;
     file >> n;
 
-    int* A = new int[n];
+    int* A = new int[n]; // створення масиву
 
     for (int i = 0; i < n; i++)
         file >> A[i];
 
     file.close();
 
-    int maxValue = -1000000;
+    int maxValue = -1000000; // початкове мінімальне значення
 
     // проходження по масиву з двох сторін
-    for (int i = 0; i < n / 2; i++)
+    for (int i = 0; i < n / 2; i++) // цикл до середини
     {
-        int m;
+        int m; //мінімальний елемент пари
 
         // знаходження мінімального елемента пари
         if (A[i] < A[n - i - 1])
@@ -236,7 +230,7 @@ void task3()
 
     result.close();
 
-    delete[] A;
+    delete[] A; // звільнення пам'яті
 }
 
 // Читання даних з файлу у контейнер vector
@@ -247,16 +241,16 @@ void readToVector()
     int n;
     file >> n;
 
-    vector<int> arr(n);
+    vector<int> arr(n); // створення vector
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) // заповнення контейнера
         file >> arr[i];
 
     file.close();
 
     cout << "Елементи vector:\n";
 
-    for (int i = 0; i < arr.size(); i++)
+    for (int i = 0; i < arr.size(); i++) // вивід vector
         cout << arr[i] << " ";
 
     cout << endl;
@@ -269,11 +263,11 @@ int main()
     SetConsoleOutputCP(1251);
     SetConsoleCP(1251);
 
-    int choice;
+    int choice; // змінна вибору пункту меню
 
     do
     {
-        cout << "\n===== МЕНЮ =====\n";
+        cout << "\n        МЕНЮ\n";
         cout << "1 - Ввести масив у файл\n";
         cout << "2 - Створити масив (бінарний файл)\n";
         cout << "3 - Завдання 1\n";
@@ -315,7 +309,7 @@ int main()
             break;
         }
 
-    } while (choice != 0);
+    } while (choice != 0); // цикл працює поки не обрано вихід
 
     return 0;
 }
